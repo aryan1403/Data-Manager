@@ -33,7 +33,7 @@ I will Updating This Code in the Future for improved Code and better functionali
   
 
 ## Contribution
-This project is made for Educational purpose only. I have no problem if you kang/Edit my Code. If you want to Contribute with me you can make a Pull Request :)
+This project is made for Educational purpose only. I have no problem if you kang/Edit my Code. If you want to Contribute in this Project you can make a Pull Request :)
 
 # Support
 If you like my work you can Support me or donate me (If you can).
