@@ -249,4 +249,19 @@ public class Frame implements ActionListener, meow {
         }
 
     }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void addImageToList() {
+
+    }
+
+    @Override
+    public int rImage(int n) {
+        return 0;
+    }
 }
