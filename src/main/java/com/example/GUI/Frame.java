@@ -6,6 +6,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.example.Helpers.meow;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -19,7 +22,7 @@ import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
 
-public class Frame extends Info implements ActionListener {
+public class Frame implements ActionListener, meow {
     JFrame frame = new JFrame();
 
     JPanel mainpanel = new JPanel();
@@ -57,7 +60,8 @@ public class Frame extends Info implements ActionListener {
 
     private final Color primaryColor = new Color(23, 23, 23);
 
-    public Frame() {
+    @Override
+    public void start() {
         dayselector.setBounds(0, 0, 70, 30);
         dayselector.setBackground(new Color(25, 25, 25));
         dayselector.setForeground(Color.white);
