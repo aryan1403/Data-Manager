@@ -4,6 +4,6 @@ import com.example.GUI.Info;
 
 public class App {
     public static void main(String[] args) {
-        new Info();
+        new Info().start();
     }
 }
