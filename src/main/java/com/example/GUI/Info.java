@@ -118,7 +118,10 @@ public class Info implements ActionListener, meow {
 
     @Override
     public void addImageToList() {
+        imagelist.add("src/main/java/com/example/res/background5.jpg");
         imagelist.add("src/main/java/com/example/res/background2.jpg");
+        imagelist.add("src/main/java/com/example/res/background4.jpg");
+        imagelist.add("src/main/java/com/example/res/background3.jpg");
         imagelist.add("src/main/java/com/example/res/background.jpg");
     }
 
