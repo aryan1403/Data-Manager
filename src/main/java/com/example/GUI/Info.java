@@ -12,9 +12,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Info implements ActionListener, meow {
     JFrame frame = new JFrame();
@@ -38,14 +39,17 @@ public class Info implements ActionListener, meow {
     private final Color primaryColor = new Color(23, 23, 23);
 
     private String filename = "";
+    private String imagename;
 
-    Image image = new ImageIcon("src/main/java/com/example/res/background.jpg").getImage().getScaledInstance(fwidth,
-            fheight, Image.SCALE_SMOOTH);
-    ImageIcon icon = new ImageIcon(image);
+    private List<String> imagelist = new ArrayList<String>();
+
+    Image image;
+    ImageIcon icon;
 
     @Override
     public void start() {
-        quesArea.setBounds(300, 150, 400, 50);
+        init();
+        quesArea.setBounds(330, 200, 400, 50);
         quesArea.setOpaque(false);
         quesArea.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.white));
         quesArea.setForeground(Color.white);
@@ -53,24 +57,23 @@ public class Info implements ActionListener, meow {
         quesArea.setVisible(true);
         quesArea.addActionListener(this);
 
-        submit.setBounds(400, 500, 150, 50);
+        submit.setBounds(620, 550, 150, 50);
         submit.setText("Next  >");
         submit.setFont(new Font("Comic Sans", Font.BOLD + Font.ITALIC, 30));
         submit.setFocusable(false);
         submit.setOpaque(false);
         submit.setContentAreaFilled(false);
         submit.setBorderPainted(false);
-        submit.setForeground(new Color(0, 255, 247));
+        submit.setForeground(Color.white);
         submit.addActionListener(this);
 
-        choose.setBounds(200, 150, 100, 50);
+        choose.setBounds(120, 200, 150, 50);
         choose.setText("Choose");
-        choose.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        choose.setFont(new Font("Comic Sans", Font.BOLD + Font.ITALIC, 28));
         choose.setFocusable(false);
-        choose.setBorderPainted(false);
         choose.setContentAreaFilled(false);
-        choose.setBorderPainted(false);
         choose.setForeground(Color.white);
+        choose.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 0, Color.white));
         choose.addActionListener(this);
 
         mainpanel.setBounds(0, 0, fwidth, fheight);
@@ -105,5 +108,25 @@ public class Info implements ActionListener, meow {
             frame.dispose();
             new Frame().start();
         }
+    }
+
+    @Override
+    public int rImage(int n) {
+        int result = (int) (Math.random() * n);
+        return result;
+    }
+
+    @Override
+    public void addImageToList() {
+        imagelist.add("src/main/java/com/example/res/background2.jpg");
+        imagelist.add("src/main/java/com/example/res/background.jpg");
+    }
+
+    @Override
+    public void init() {
+        addImageToList();
+        imagename = imagelist.get(rImage(imagelist.size()));
+        image = new ImageIcon(imagename).getImage().getScaledInstance(fwidth, fheight, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(image);
     }
 }
