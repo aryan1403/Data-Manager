@@ -1,5 +1,6 @@
 package com.example.GUI;
 
+import com.example.Helpers.*;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,10 +11,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-public class Info implements ActionListener {
+public class Info implements ActionListener, meow {
     JFrame frame = new JFrame();
 
     JLabel mainpanel = new JLabel();
@@ -25,6 +28,8 @@ public class Info implements ActionListener {
 
     JFileChooser j = new JFileChooser();
 
+    File xfile;
+
     // ------------------- variables ------------------------
 
     private final int fwidth = 900;
@@ -32,11 +37,14 @@ public class Info implements ActionListener {
 
     private final Color primaryColor = new Color(23, 23, 23);
 
+    private String filename = "";
+
     Image image = new ImageIcon("src/main/java/com/example/res/background.jpg").getImage().getScaledInstance(fwidth,
             fheight, Image.SCALE_SMOOTH);
     ImageIcon icon = new ImageIcon(image);
 
-    public Info() {
+    @Override
+    public void start() {
         quesArea.setBounds(300, 150, 400, 50);
         quesArea.setOpaque(false);
         quesArea.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.white));
@@ -72,6 +80,7 @@ public class Info implements ActionListener {
         mainpanel.add(quesArea);
         mainpanel.add(submit);
         mainpanel.add(j);
+        mainpanel.add(choose);
 
         frame.setSize(fwidth, fheight);
         frame.setTitle("Quiz Manager");
@@ -88,10 +97,13 @@ public class Info implements ActionListener {
             j.showSaveDialog(null);
             j.setBounds(250, 150, 50, 50);
             j.setOpaque(false);
+            xfile = j.getSelectedFile();
+            filename = xfile.getName();
+            quesArea.setText(filename);
         }
         if (e.getSource() == submit) {
             frame.dispose();
-            new Frame();
+            new Frame().start();
         }
     }
 }
