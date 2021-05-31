@@ -1,253 +1,336 @@
 package com.example.GUI;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import com.example.Helpers.meow;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame implements ActionListener, meow {
     JFrame frame = new JFrame();
-
+    JPanel dashboard = new JPanel();
+    JLabel toplabel = new JLabel();
+    JLabel semitop = new JLabel();
+    JLabel toppanel = new JLabel();
+    JLabel homelabel = new JLabel();
+    JLabel homelabel2 = new JLabel();
     JPanel mainpanel = new JPanel();
-    JPanel headpanel = new JPanel();
+    JPanel tilepanel = new JPanel();
     JPanel combopanel = new JPanel();
 
-    JButton addQues = new JButton();
-    JButton ok = new JButton();
-    JButton ok2 = new JButton();
-    JButton ansBy = new JButton();
-    JButton submit = new JButton();
+    JLabel homelabel3 = new JLabel();
+    JLabel homelabel4 = new JLabel();
 
-    String[] day = { "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday" };
+    JLabel homelabel5 = new JLabel();
+    JLabel homelabel6 = new JLabel();
+
+    JLabel homelabel7 = new JLabel();
+    JLabel homelabel8 = new JLabel();
+
+    JPanel tile1 = new JPanel();
+    JPanel tile2 = new JPanel();
+    JPanel tile3 = new JPanel();
+    JPanel tile4 = new JPanel();
+
+    JTextArea area = new JTextArea();
+    JTextArea area2 = new JTextArea();
+
+    ImageIcon homeicon = new ImageIcon("src/main/java/com/example/res/home.jpg");
+    ImageIcon chaticon = new ImageIcon("src/main/java/com/example/res/data.png");
+    ImageIcon bookicon = new ImageIcon("src/main/java/com/example/res/developer.jpg");
+    ImageIcon mobileicon = new ImageIcon("src/main/java/com/example/res/settings.png");
+    ImageIcon picon = new ImageIcon("src/main/java/com/example/res/pic.jpg");
+
+    JTextField t1 = new JTextField();
+    JTextField t2 = new JTextField();
+    JTextField t3 = new JTextField();
+    JTextField t4 = new JTextField();
+    JTextField t5 = new JTextField();
+    JTextField t6 = new JTextField();
+
+    JButton b1 = new JButton("Submit");
+
+    JLabel item1 = new JLabel("Ques 1");
+    JLabel item2 = new JLabel("Ques 2");
+
+    JPanel copyright = new JPanel();
+    JLabel c = new JLabel("Manager Tool");
+    JLabel c1 = new JLabel("© Manager Tool - for my sis ❤️");
+
+    private final int X = 1000;
+    private final int Y = 700;
+
+    private final Color primaryColor = new Color(189, 0, 13);// 62, 1, 122
+    // private final Color color = new Color(219, 71, 55); // 119, 34, 224
+
+    String[] day = new String[30];
     String[] month = { "January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October",
             "November", "December" };
     String[] year = { "2021", "2022", "2023" };
 
-    JComboBox<String> dayselector = new JComboBox<String>(day);
+    JComboBox<String> dayselector = new JComboBox<String>();
     JComboBox<String> monthselector = new JComboBox<String>(month);
     JComboBox<String> yearselector = new JComboBox<String>(year);
 
-    JTextField quesArea = new JTextField();
-    JTextField answeredBy = new JTextField();
+    int x = 0;
 
-    // ------------------- variables ------------------------
+    String a = "";
+    String b = "";
+    String a2 = "";
+    String a1 = "";
+    String n = "";
+    String n2 = "";
 
-    private final int fwidth = 900;
-    private final int fheight = 700;
+    public void Result() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Cats");
 
-    String Questext;
-    String AnswerText;
+        String[][] bookData2 = {
+                { "Date",
+                        day[dayselector.getSelectedIndex()].trim() + " " + month[monthselector.getSelectedIndex()]
+                                + ", " + year[yearselector.getSelectedIndex()] },
+                { "Ques1", n }, { "Ques2", n2, }, { "Answers", a1, a2 } };
 
-    List<String> ques = new ArrayList<String>();
-    List<String> ans = new ArrayList<String>();
+        // Object[][] bookData = { { Questext, AnswerText, 100 }, };
 
-    private final Color primaryColor = new Color(23, 23, 23);
+        int rowCount = 0;
+        int columnCount = 0;
+
+        /*
+         * for (Object[] aBook : bookData) { Row row = sheet.createRow(rowCount);
+         * 
+         * for (Object field : aBook) { Cell cell = row.createCell(columnCount); if
+         * (field instanceof String) { cell.setCellValue((String) field); } else if
+         * (field instanceof Integer) { cell.setCellValue((Integer) field); }
+         * columnCount++; }
+         * 
+         * rowCount++; }
+         */
+
+        for (String[] aBook : bookData2) {
+            Row row = sheet.createRow(rowCount);
+
+            for (Object field : aBook) {
+                Cell cell = row.createCell(columnCount);
+                cell.setCellValue((String) field);
+                columnCount++;
+            }
+            rowCount++;
+            columnCount = 0;
+        }
+
+        try (FileOutputStream outputStream = new FileOutputStream("meow.xlsx")) {
+            System.out.println("Successfully Created the file!");
+            workbook.write(outputStream);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void createTile(ImageIcon icon, String text, JPanel panel, JLabel ilabel, JLabel tlabel) {
+        tlabel.setBounds(50, 200, 100, 50);
+        tlabel.setBackground(Color.white);
+        tlabel.setForeground(Color.white);
+        tlabel.setIconTextGap(10);
+        tlabel.setFont(new Font("Comic Sans", Font.BOLD, 14));
+        tlabel.setLayout(null);
+
+        ilabel.setBounds(15, 200, 50, 50);
+        ilabel.setBackground(Color.white);
+        ilabel.setText(text);
+        ilabel.setFont(new Font("Comic Sans", Font.PLAIN, 17));
+        ilabel.setIcon(icon);
+        ilabel.setForeground(Color.black);
+
+        panel.setBounds(5, 125 + x, 190, 45);
+        panel.setBackground(Color.white);
+        panel.add(ilabel);
+        panel.add(tlabel);
+        x += 55;
+    }
 
     @Override
     public void start() {
+
+        for (int i = 0; i < day.length; i++) {
+            day[i] = (i + 1) + "              ";
+            dayselector.addItem(day[i]);
+        }
+
+        toplabel.setBounds(20, 15, 150, 50);
+        toplabel.setBackground(Color.white);
+        toplabel.setText("Manager Tool");
+        toplabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white));
+        toplabel.setFont(new Font("Aerial", Font.PLAIN, 24));
+        toplabel.setForeground(Color.white);
+
+        semitop.setBounds(20, 60, 150, 50);
+        semitop.setBackground(Color.white);
+        semitop.setText("We ❤️ Quizzes");
+        semitop.setFont(new Font("San Serif", Font.PLAIN, 15));
+        semitop.setForeground(Color.white);
+
+        createTile(homeicon, "  Home              ", tile1, homelabel, homelabel2);
+
+        createTile(chaticon, "  Database         ", tile2, homelabel3, homelabel4);
+
+        createTile(bookicon, "  Developer        ", tile3, homelabel5, homelabel6);
+
+        createTile(mobileicon, "  Settings           ", tile4, homelabel7, homelabel8);
+
+        toppanel.setBounds(200, 0, 800, 70);
+        toppanel.setOpaque(false);
+        toppanel.setText("Manager Tool");
+        toppanel.setFont(new Font("Comic Sans", Font.BOLD, 30));
+
+        dashboard.setBounds(0, 0, 200, Y);
+        dashboard.setBackground(primaryColor);
+        dashboard.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, primaryColor));
+        dashboard.setLayout(null);
+        dashboard.add(toplabel);
+        dashboard.add(semitop);
+        dashboard.add(tile1);
+        dashboard.add(tile2);
+        dashboard.add(tile3);
+        dashboard.add(tile4);
+
         dayselector.setBounds(0, 0, 70, 30);
-        dayselector.setBackground(new Color(25, 25, 25));
-        dayselector.setForeground(Color.white);
+        dayselector.setBackground(Color.white);
+        dayselector.setForeground(Color.black);
         dayselector.setFont(new Font("Comic Sans", Font.ITALIC + Font.BOLD, 15));
 
-        monthselector.setBounds(90, 0, 70, 30);
-        monthselector.setBackground(new Color(25, 25, 25));
-        monthselector.setForeground(Color.white);
+        monthselector.setBounds(100, 0, 70, 30);
+        monthselector.setBackground(Color.white);
+        monthselector.setForeground(Color.black);
         monthselector.setFont(new Font("Comic Sans", Font.ITALIC + Font.BOLD, 15));
 
-        yearselector.setBounds(170, 0, 100, 30);
-        yearselector.setBackground(new Color(25, 25, 25));
-        yearselector.setForeground(Color.white);
+        yearselector.setBounds(200, 0, 100, 30);
+        yearselector.setBackground(Color.white);
+        yearselector.setForeground(Color.black);
         yearselector.setFont(new Font("Aerial", Font.ITALIC + Font.BOLD, 15));
 
-        combopanel.setBounds(200, 5, 500, 50);
-        combopanel.setBackground(new Color(25, 25, 25));
+        combopanel.setBounds(340, 200, 400, 50);
+        combopanel.setBackground(Color.white);
         combopanel.add(dayselector);
         combopanel.add(monthselector);
         combopanel.add(yearselector);
 
-        headpanel.setBounds(0, 0, fwidth, 50);
-        headpanel.setBackground(new Color(25, 25, 25));
-        headpanel.setBorder(BorderFactory.createEtchedBorder(new Color(30, 30, 30), new Color(25, 25, 25)));
-        headpanel.add(combopanel);
-        headpanel.setLayout(null);
+        t1.setBounds(400, 120, 400, 50);
+        t1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+        t1.setFont(new Font("San Serif", Font.PLAIN, 20));
+        t1.addActionListener(this);
 
-        addQues.setBounds(50, 150, 100, 45);
-        addQues.setText("+ Ques");
-        addQues.setFont(new Font("Comic Sans", Font.BOLD, 18));
-        addQues.setBackground(Color.green);
-        addQues.setForeground(Color.white);
-        addQues.setFocusable(false);
-        addQues.addActionListener(this);
+        b1.setBounds(815, 130, 160, 40);
+        b1.setFocusable(false);
+        b1.setBackground(new Color(14, 167, 181));
+        b1.setFont(new Font("San Serif", Font.PLAIN, 20));
+        b1.setForeground(Color.white);
+        b1.addActionListener(this);
 
-        quesArea.setBounds(300, 150, 400, 200);
-        quesArea.setBackground(primaryColor);
-        quesArea.setBorder(BorderFactory.createLineBorder(Color.blue));
-        quesArea.setForeground(Color.cyan);
-        quesArea.setFont(new Font("Aerial", Font.PLAIN, 18));
-        quesArea.setVisible(false);
-        quesArea.addActionListener(this);
+        item1.setBounds(250, 270, 80, 40);
+        item1.setForeground(Color.black);
+        item1.setFont(new Font("Comic Sans", Font.BOLD + Font.ITALIC, 18));
 
-        ok.setBounds(750, 150, 90, 50);
-        ok.setText("OK");
-        ok.setBackground(Color.red);
-        ok.setForeground(Color.white);
-        ok.setFocusable(false);
-        ok.setVisible(false);
-        ok.setFont(new Font("Aerial", Font.BOLD, 20));
-        ok.addActionListener(this);
+        item2.setBounds(600, 270, 80, 40);
+        item2.setForeground(Color.black);
+        item2.setFont(new Font("Comic Sans", Font.BOLD + Font.ITALIC, 18));
 
-        ansBy.setBounds(50, 400, 200, 45);
-        ansBy.setText("+ Answered By");
-        ansBy.setFont(new Font("Comic Sans", Font.BOLD, 18));
-        ansBy.setBackground(Color.green);
-        ansBy.setForeground(Color.white);
-        ansBy.setFocusable(false);
-        ansBy.addActionListener(this);
+        t3.setBounds(250, 320, 320, 40);
+        t3.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+        t3.setFont(new Font("San Serif", Font.PLAIN, 18));
+        t3.addActionListener(this);
 
-        answeredBy.setBounds(300, 400, 400, 70);
-        answeredBy.setBackground(primaryColor);
-        answeredBy.setForeground(Color.cyan);
-        answeredBy.setBorder(BorderFactory.createLineBorder(Color.blue));
-        answeredBy.setFont(new Font("Aerial", Font.BOLD, 20));
-        answeredBy.setVisible(false);
-        answeredBy.addActionListener(this);
+        t6.setBounds(600, 320, 320, 40);
+        t6.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+        t6.setFont(new Font("San Serif", Font.PLAIN, 18));
+        t6.addActionListener(this);
 
-        ok2.setBounds(750, 400, 90, 50);
-        ok2.setText("OK");
-        ok2.setBackground(Color.red);
-        ok2.setForeground(Color.white);
-        ok2.setFocusable(false);
-        ok2.setVisible(false);
-        ok2.setFont(new Font("Aerial", Font.BOLD, 20));
-        ok2.addActionListener(this);
+        area.setBounds(250, 380, 320, 150);
+        area.setFont(new Font("San Serif", Font.PLAIN, 15));
+        area.setBorder(BorderFactory.createEtchedBorder(Color.black, Color.black));
 
-        submit.setBounds(330, 550, 300, 60);
-        submit.setBorderPainted(false);
-        submit.setBackground(primaryColor);
-        submit.setText("Submit");
-        submit.setForeground(Color.white);
-        submit.setFont(new Font("Comic Sans", Font.BOLD, 30));
-        submit.setFocusable(false);
-        submit.setVisible(false);
-        submit.addActionListener(this);
+        t4.setBounds(250, 555, 320, 30);
+        t4.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+        t4.setFont(new Font("San Serif", Font.PLAIN, 15));
 
-        mainpanel.setBounds(0, 0, fwidth, fheight);
-        mainpanel.setBackground(primaryColor);
+        area2.setBounds(600, 380, 320, 150);
+        area2.setFont(new Font("San Serif", Font.PLAIN, 15));
+        area2.setBorder(BorderFactory.createEtchedBorder(Color.black, Color.black));
+
+        t5.setBounds(600, 555, 320, 30);
+        t5.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+        t5.setFont(new Font("San Serif", Font.PLAIN, 15));
+
+        c.setBounds(570, 600, 150, 30);
+        c.setForeground(Color.white);
+        c.setBackground(new Color(23, 23, 23));
+        c.setFont(new Font("San Serif", Font.BOLD, 22));
+
+        c1.setBounds(540, 630, 300, 30);
+        c1.setForeground(Color.white);
+        c1.setBackground(new Color(23, 23, 23));
+        c1.setFont(new Font("Comic Sans", Font.PLAIN, 15));
+
+        copyright.setBounds(200, 600, 800, 100);
+        copyright.setBackground(new Color(23, 23, 23));
+
+        mainpanel.setBounds(0, 0, X, Y);
+        mainpanel.add(dashboard);
+        mainpanel.add(t1);
+        mainpanel.add(combopanel);
+        mainpanel.add(t3);
+        mainpanel.add(t4);
+        mainpanel.add(t5);
+        mainpanel.add(t6);
+        mainpanel.add(b1);
+        mainpanel.add(item1);
+        mainpanel.add(item2);
+        mainpanel.add(area);
+        mainpanel.add(area2);
+        mainpanel.add(c);
+        mainpanel.add(c1);
+        mainpanel.add(copyright);
+        mainpanel.setBackground(Color.white);
         mainpanel.setLayout(null);
-        mainpanel.add(headpanel);
-        mainpanel.add(addQues);
-        mainpanel.add(quesArea);
-        mainpanel.add(ok);
-        mainpanel.add(ok2);
-        mainpanel.add(ansBy);
-        mainpanel.add(answeredBy);
-        mainpanel.add(submit);
 
-        frame.setSize(fwidth, fheight);
-        frame.setTitle("Quiz Manager");
+        frame.setSize(X, Y);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(3);
-        frame.setResizable(false);
-        frame.add(mainpanel);
-        // frame.pack();
+        frame.setLayout(null);
         frame.setVisible(true);
+        frame.add(mainpanel);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addQues) {
-            quesArea.setVisible(true);
-            ok.setVisible(true);
-            Questext = quesArea.getText();
-            ques.add(Questext);
+        if (e.getSource() == b1) {
+            a = t3.getText();
+            b = t6.getText();
+            a1 = t4.getText();
+            a2 = t5.getText();
+            n = area.getText();
+            n2 = area2.getText();
+            Result();
         }
+    }
 
-        if (e.getSource() == ok) {
-            Questext = quesArea.getText();
-            ques.add(Questext);
-        }
-
-        if (e.getSource() == ansBy) {
-            answeredBy.setVisible(true);
-            ok2.setVisible(true);
-        }
-
-        if (e.getSource() == ok2) {
-            submit.setVisible(true);
-            AnswerText = answeredBy.getText();
-            ans.add(AnswerText);
-        }
-
-        if (e.getSource() == submit) {
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Cats");
-
-            String[][] bookData2 = new String[100][100];
-
-            Object[][] bookData = { { Questext, AnswerText, 100 }, };
-
-            int rowCount = 0;
-            int columnCount = 0;
-
-            for (int j = 0; j < ques.size(); j++) {
-                bookData2[0][j] = ques.get(j);
-            }
-            for (int i = 0; i < ans.size(); i++) {
-                bookData2[1][i] = ans.get(i);
-            }
-
-            /*
-             * for (Object[] aBook : bookData) { Row row = sheet.createRow(rowCount);
-             * 
-             * for (Object field : aBook) { Cell cell = row.createCell(columnCount); if
-             * (field instanceof String) { cell.setCellValue((String) field); } else if
-             * (field instanceof Integer) { cell.setCellValue((Integer) field); }
-             * columnCount++; }
-             * 
-             * rowCount++; }
-             */
-
-            for (String[] aBook : bookData2) {
-                Row row = sheet.createRow(rowCount);
-
-                for (Object field : aBook) {
-                    Cell cell = row.createCell(columnCount);
-                    if (field instanceof String) {
-                        cell.setCellValue((String) field);
-                    } else if (field instanceof Integer) {
-                        cell.setCellValue((Integer) field);
-                    }
-                    columnCount++;
-                }
-                rowCount++;
-            }
-
-            try (FileOutputStream outputStream = new FileOutputStream("meow.xlsx")) {
-                System.out.println("Successfully Created the file!");
-                workbook.write(outputStream);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-
+    public static void main(String[] args) {
+        new HtmlViewer().start();
     }
 
     @Override
@@ -262,7 +345,6 @@ public class Frame implements ActionListener, meow {
 
     @Override
     public int rImage(int n) {
-
         return 0;
     }
 }
