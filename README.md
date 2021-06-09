@@ -1,7 +1,7 @@
 # Data-Manager
 A JAVA-Swing Application to keep track of the data. This also provides to export the Data into an excel Sheets. 
 
-I will Updating This Code in the Future for improved Code and better functionalities.
+I will be Updating This Code in the Future for improved Code and better functionalities.
  
 ## Language
   Data-Manager is made in Pure Java ;)
